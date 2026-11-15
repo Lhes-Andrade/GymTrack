@@ -3,6 +3,9 @@ using GymTrack.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//Habilitar Session
+builder.Services.AddSession();
+
 builder.Services.AddDbContext<GymContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -19,6 +22,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+//Activa el uso de Session en cada petición http
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseRouting();
 
@@ -28,7 +33,7 @@ app.MapStaticAssets();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
+    pattern: "{controller=Login}/{action=Index}/{id?}")
     .WithStaticAssets();
 
 
