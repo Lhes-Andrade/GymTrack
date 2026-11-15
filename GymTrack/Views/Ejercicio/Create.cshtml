@@ -1,0 +1,44 @@
+﻿@model GymTrack.Models.Ejercicio
+
+<div class="card shadow-sm col-md-8 mx-auto">
+    <div class="card-header bg-success text-white">
+        <h4 class="mb-0">Nuevo Ejercicio</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Grupo Muscular</label>
+                <select asp-for="GrupoMuscular" class="form-select">
+                    <option value="">-- Seleccione --</option>
+                    <option value="Pecho">Pecho</option>
+                    <option value="Espalda">Espalda</option>
+                    <option value="Piernas">Piernas</option>
+                    <option value="Hombros">Hombros</option>
+                    <option value="Bíceps">Bíceps</option>
+                    <option value="Tríceps">Tríceps</option>
+                    <option value="Abdomen">Abdomen</option>
+                    <option value="Cuerpo completo">Cuerpo completo</option>
+                </select>
+                <span asp-validation-for="GrupoMuscular" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Equipo (opcional)</label>
+                <input asp-for="Equipo" class="form-control" placeholder="Ej: Barra, mancuernas, máquina" />
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Descripción (opcional)</label>
+                <textarea asp-for="Descripcion" class="form-control" rows="3"></textarea>
+            </div>
+
+            <button class="btn btn-success">Guardar</button>
+            <a class="btn btn-secondary" href="/Ejercicio">Cancelar</a>
+        </form>
+    </div>
+</div>

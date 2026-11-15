@@ -1,0 +1,53 @@
+﻿@model List<GymTrack.Models.Ejercicio>
+
+<h2 class="mb-4">Ejercicios</h2>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">@TempData["Mensaje"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+@if (Context.Session.GetString("Rol") == "Administrador")
+{
+    <a class="btn btn-success mb-3" href="/Ejercicio/Create">+ Nuevo Ejercicio</a>
+}
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Grupo Muscular</th>
+                <th>Equipo</th>
+                <th>Descripción</th>
+                @if (Context.Session.GetString("Rol") == "Administrador")
+                {
+                    <th class="text-center text-nowrap">Acciones</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td><span class="badge bg-primary">@item.GrupoMuscular</span></td>
+                    <td>@item.Equipo</td>
+                    <td>@item.Descripcion</td>
+                    @if (Context.Session.GetString("Rol") == "Administrador")
+                    {
+                        <td class="text-center text-nowrap">
+                            <a class="btn btn-warning" href="/Ejercicio/Edit/@item.Id">Editar</a>
+                            <a class="btn btn-danger" href="/Ejercicio/Delete/@item.Id"
+                               onclick="return confirm('¿Seguro que deseas eliminar @item.Nombre?');">Eliminar</a>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
