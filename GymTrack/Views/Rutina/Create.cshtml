@@ -1,0 +1,46 @@
+﻿@model GymTrack.Models.Rutina
+
+<div class="card shadow-sm col-md-8 mx-auto">
+    <div class="card-header bg-success text-white">
+        <h4 class="mb-0">Nueva Rutina</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label class="form-label">Nombre</label>
+                <input asp-for="Nombre" class="form-control" placeholder="Ej: Full Body 3 días" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Objetivo</label>
+                <select asp-for="Objetivo" class="form-select">
+                    <option value="">-- Seleccione --</option>
+                    <option value="Fuerza">Fuerza</option>
+                    <option value="Hipertrofia">Hipertrofia</option>
+                    <option value="Resistencia">Resistencia</option>
+                    <option value="Pérdida de peso">Pérdida de peso</option>
+                </select>
+                <span asp-validation-for="Objetivo" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Nivel</label>
+                <select asp-for="Nivel" class="form-select">
+                    <option value="">-- Seleccione --</option>
+                    <option value="Principiante">Principiante</option>
+                    <option value="Intermedio">Intermedio</option>
+                    <option value="Avanzado">Avanzado</option>
+                </select>
+                <span asp-validation-for="Nivel" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Descripción (opcional)</label>
+                <textarea asp-for="Descripcion" class="form-control" rows="3"></textarea>
+            </div>
+
+            <button class="btn btn-success">Guardar</button>
+            <a class="btn btn-secondary" href="/Rutina">Cancelar</a>
+        </form>
+    </div>
+</div>

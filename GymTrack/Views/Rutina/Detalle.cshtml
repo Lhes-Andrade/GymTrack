@@ -1,0 +1,101 @@
+﻿@model GymTrack.Models.Rutina
+
+<h2>@Model.Nombre</h2>
+<p>
+    <span class="badge bg-info text-dark">@Model.Objetivo</span>
+    <span class="badge bg-secondary">@Model.Nivel</span>
+</p>
+<p>@Model.Descripcion</p>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">@TempData["Mensaje"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<!-- FORMULARIO PARA AGREGAR EJERCICIOS (SOLO ADMIN) -->
+@if (Context.Session.GetString("Rol") == "Administrador")
+{
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-success text-white">Agregar ejercicio a la rutina</div>
+        <div class="card-body">
+            <form asp-action="AgregarEjercicio" method="post">
+                <input type="hidden" name="RutinaId" value="@Model.Id" />
+                <div class="row g-2 align-items-end">
+                    <div class="col-md-4">
+                        <label class="form-label">Ejercicio</label>
+                        <select name="EjercicioId" class="form-select" required>
+                            <option value="">-- Seleccione --</option>
+                            @foreach (var ej in ViewBag.Ejercicios)
+                            {
+                                <option value="@ej.Id">@ej.Nombre (@ej.GrupoMuscular)</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Series</label>
+                        <input name="Series" type="number" class="form-control" value="3" min="1" max="20" required />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Repeticiones</label>
+                        <input name="Repeticiones" type="number" class="form-control" value="10" min="1" max="100" required />
+                    </div>
+                    <div class="col-md-2">
+                        <label class="form-label">Descanso (seg)</label>
+                        <input name="DescansoSegundos" type="number" class="form-control" value="60" min="0" max="600" required />
+                    </div>
+                    <div class="col-md-2">
+                        <button class="btn btn-success w-100">Agregar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+<!-- LISTA DE EJERCICIOS DE LA RUTINA -->
+<h4>Ejercicios de la rutina</h4>
+@if (ViewBag.EjerciciosRutina.Count == 0)
+{
+    <div class="alert alert-secondary">Esta rutina todavía no tiene ejercicios.</div>
+}
+else
+{
+    <table class="table table-striped table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Ejercicio</th>
+                <th>Series</th>
+                <th>Repeticiones</th>
+                <th>Descanso</th>
+                @if (Context.Session.GetString("Rol") == "Administrador")
+                {
+                    <th class="text-center">Acciones</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.EjerciciosRutina)
+            {
+                <tr>
+                    <td>@item.Ejercicio.Nombre</td>
+                    <td>@item.Series</td>
+                    <td>@item.Repeticiones</td>
+                    <td>@item.DescansoSegundos seg</td>
+                    @if (Context.Session.GetString("Rol") == "Administrador")
+                    {
+                        <td class="text-center">
+                            <a class="btn btn-danger btn-sm" href="/Rutina/QuitarEjercicio/@item.Id"
+                               onclick="return confirm('¿Quitar este ejercicio de la rutina?');">Quitar</a>
+                        </td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a class="btn btn-secondary" href="/Rutina">Volver a rutinas</a>

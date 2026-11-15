@@ -1,0 +1,64 @@
+﻿@model List<GymTrack.Models.Rutina>
+
+<h2 class="mb-4">Rutinas</h2>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">@TempData["Mensaje"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+@if (Context.Session.GetString("Rol") == "Administrador")
+{
+    <a class="btn btn-success mb-3" href="/Rutina/Create">+ Nueva Rutina</a>
+}
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Nombre</th>
+                <th>Objetivo</th>
+                <th>Nivel</th>
+                <th>Descripción</th>
+                <th class="text-center text-nowrap">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Nombre</td>
+                    <td><span class="badge bg-info text-dark">@item.Objetivo</span></td>
+                    <td>
+                        @if (item.Nivel == "Principiante")
+                        {
+                            <span class="badge bg-success">Principiante</span>
+                        }
+                        else if (item.Nivel == "Intermedio")
+                        {
+                            <span class="badge bg-warning text-dark">Intermedio</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">@item.Nivel</span>
+                        }
+                    </td>
+                    <td>@item.Descripcion</td>
+                    <td class="text-center text-nowrap">
+                        <a class="btn btn-primary" href="/Rutina/Detalle/@item.Id">Ver ejercicios</a>
+                        @if (Context.Session.GetString("Rol") == "Administrador")
+                        {
+                            <a class="btn btn-warning" href="/Rutina/Edit/@item.Id">Editar</a>
+                            <a class="btn btn-danger" href="/Rutina/Delete/@item.Id"
+                               onclick="return confirm('¿Seguro que deseas eliminar la rutina @item.Nombre? También se quitarán sus ejercicios asignados.');">Eliminar</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
