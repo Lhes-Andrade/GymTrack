@@ -1,0 +1,53 @@
+﻿@model GymTrack.Models.RegistroEntrenamiento
+
+<div class="card shadow-sm col-md-8 mx-auto">
+    <div class="card-header bg-success text-white">
+        <h4 class="mb-0">Registrar Entrenamiento</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label class="form-label">Ejercicio</label>
+                <select asp-for="EjercicioId" class="form-select" required>
+                    <option value="">-- Seleccione --</option>
+                    @foreach (var ej in ViewBag.Ejercicios)
+                    {
+                        <option value="@ej.Id">@ej.Nombre (@ej.GrupoMuscular)</option>
+                    }
+                </select>
+                <span asp-validation-for="EjercicioId" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Fecha</label>
+                <input asp-for="Fecha" type="date" class="form-control" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+            </div>
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Series</label>
+                    <input asp-for="Series" class="form-control" min="1" max="20" />
+                    <span asp-validation-for="Series" class="text-danger"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Repeticiones</label>
+                    <input asp-for="Repeticiones" class="form-control" min="1" max="100" />
+                    <span asp-validation-for="Repeticiones" class="text-danger"></span>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label">Peso (kg)</label>
+                    <input asp-for="PesoKg" class="form-control" step="0.5" min="0" max="500" />
+                    <span asp-validation-for="PesoKg" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Notas (opcional)</label>
+                <textarea asp-for="Notas" class="form-control" rows="2" placeholder="Ej: Me sentí fuerte, subir peso la próxima"></textarea>
+            </div>
+
+            <button class="btn btn-success">Guardar</button>
+            <a class="btn btn-secondary" href="/Entrenamiento">Cancelar</a>
+        </form>
+    </div>
+</div>

@@ -1,7 +1,12 @@
+using System.Globalization;
 using Microsoft.EntityFrameworkCore;
 using GymTrack.Data;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Usar punto como separador decimal (62.5 kg) en toda la aplicación
+CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
+CultureInfo.DefaultThreadCurrentUICulture = CultureInfo.InvariantCulture;
 
 //Habilitar Session
 builder.Services.AddSession();

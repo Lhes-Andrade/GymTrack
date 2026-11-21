@@ -1,0 +1,56 @@
+﻿@model List<GymTrack.Models.RegistroEntrenamiento>
+
+<h2 class="mb-4">Mis Entrenamientos</h2>
+
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">@TempData["Mensaje"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<a class="btn btn-success mb-3" href="/Entrenamiento/Create">+ Registrar Entrenamiento</a>
+
+@if (Model.Count == 0)
+{
+    <div class="alert alert-secondary">Todavía no has registrado entrenamientos.</div>
+}
+else
+{
+    <div class="table-responsive">
+        <table class="table table-striped table-hover table-bordered align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>Fecha</th>
+                    <th>Ejercicio</th>
+                    <th>Series x Reps</th>
+                    <th>Peso</th>
+                    <th>Notas</th>
+                    <th class="text-center text-nowrap">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Fecha.ToString("dd/MM/yyyy")</td>
+                        <td>
+                            @item.Ejercicio?.Nombre
+                            <span class="badge bg-primary">@item.Ejercicio?.GrupoMuscular</span>
+                        </td>
+                        <td>@item.Series x @item.Repeticiones</td>
+                        <td>@item.PesoKg kg</td>
+                        <td>@item.Notas</td>
+                        <td class="text-center text-nowrap">
+                            <a class="btn btn-warning" href="/Entrenamiento/Edit/@item.Id">Editar</a>
+                            <a class="btn btn-danger" href="/Entrenamiento/Delete/@item.Id"
+                               onclick="return confirm('¿Seguro que deseas eliminar este registro?');">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
