@@ -1,8 +1,8 @@
 ﻿@model GymTrack.Models.RegistroEntrenamiento
 
 <div class="card shadow-sm col-md-8 mx-auto">
-    <div class="card-header bg-warning text-white">
-        <h4 class="mb-0">Registrar Entrenamiento</h4>
+    <div class="card-header bg-warning">
+        <h4 class="mb-0">Editar Entrenamiento</h4>
     </div>
     <div class="card-body">
         <form asp-action="Edit" method="post">
@@ -47,7 +47,7 @@
                 <textarea asp-for="Notas" class="form-control" rows="2" placeholder="Ej: Me sentí fuerte, subir peso la próxima"></textarea>
             </div>
 
-            <button class="btn btn-success">Actualizar</button>
+            <button class="btn btn-primary">Actualizar</button>
             <a class="btn btn-secondary" href="/Entrenamiento">Cancelar</a>
         </form>
     </div>

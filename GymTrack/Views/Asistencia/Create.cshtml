@@ -1,0 +1,34 @@
+﻿@model GymTrack.Models.Asistencia
+
+<div class="card shadow-sm col-md-6 mx-auto">
+    <div class="card-header bg-success text-white">
+        <h4 class="mb-0">Marcar Asistencia</h4>
+    </div>
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger">@ViewBag.Error</div>
+            }
+
+            <div class="mb-3">
+                <label class="form-label">Fecha</label>
+                <input asp-for="Fecha" type="date" class="form-control" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+            </div>
+            <div class="form-check mb-3">
+                <input asp-for="Asistio" class="form-check-input" />
+                <label asp-for="Asistio" class="form-check-label">Asistí al gimnasio</label>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Nota (opcional)</label>
+                <textarea asp-for="Nota" class="form-control" rows="2" placeholder="Ej: Día de pierna, o no fui por trabajo"></textarea>
+            </div>
+
+            <button class="btn btn-success">Guardar</button>
+            <a class="btn btn-secondary" href="/Asistencia">Cancelar</a>
+        </form>
+    </div>
+</div>
