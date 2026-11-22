@@ -1,24 +1,49 @@
-﻿<h2>Iniciar Sesión</h2>
-
-@if (TempData["Mensaje"] != null)
-{
-    <div class="alert alert-success">@TempData["Mensaje"]</div>
+﻿@{
+    ViewData["Title"] = "Iniciar Sesión";
 }
 
-<form method="post">
-    <div class="mb-3">
-        <label>Correo:</label>
-        <input name="correo" type="email" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label>Clave:</label>
-        <input name="clave" type="password" class="form-control" required>
-    </div>
-    <button class="btn btn-primary">Iniciar Sesión</button>
-    <a class="btn btn-link" href="/Login/Registro">¿No tienes cuenta? Regístrate</a>
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6 col-lg-5">
+        <div class="card login-gym shadow-lg border-0">
+            <div class="card-body p-5">
 
-    @if (ViewBag.Error != null)
-    {
-        <div class="alert alert-danger mt-3">@ViewBag.Error</div>
-    }
-</form>
+                <!-- LOGO Y LEMA -->
+                <div class="text-center mb-4">
+                    <div class="display-4">🏋️</div>
+                    <h1 class="fw-bold text-uppercase mb-0">Gym<span class="text-warning">Track</span></h1>
+                    <p class="text-white-50 text-uppercase small">Entrena · Registra · Progresa</p>
+                </div>
+
+                @if (TempData["Mensaje"] != null)
+                {
+                    <div class="alert alert-success">@TempData["Mensaje"]</div>
+                }
+
+                <form method="post">
+                    <div class="mb-3">
+                        <label class="form-label text-uppercase small fw-bold text-warning">Correo</label>
+                        <input name="correo" type="email" class="form-control form-control-lg"
+                               placeholder="tucorreo@ejemplo.com" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label text-uppercase small fw-bold text-warning">Clave</label>
+                        <input name="clave" type="password" class="form-control form-control-lg"
+                               placeholder="••••••••" required>
+                    </div>
+
+                    <button class="btn btn-warning btn-lg w-100 fw-bold text-uppercase">Entrar a entrenar</button>
+
+                    @if (ViewBag.Error != null)
+                    {
+                        <div class="alert alert-danger mt-3">@ViewBag.Error</div>
+                    }
+                </form>
+
+                <p class="text-center mt-4 mb-0 text-white-50">
+                    ¿No tienes cuenta?
+                    <a href="/Login/Registro" class="text-warning fw-bold">Regístrate</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
