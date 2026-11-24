@@ -36,7 +36,7 @@ namespace GymTrack.Controllers
                 HttpContext.Session.SetInt32("Id", usuario.Id);
                 return RedirectToAction("Index", "Home");
             }
-            ViewBag.Error = "Credenciales incorrectas";
+            ViewBag.Error = "Correo o clave incorrectas";
             return View();
         }
 
@@ -76,6 +76,7 @@ namespace GymTrack.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
+            TempData["Mensaje"] = "Sesión Cerrada Correctamente";
             return RedirectToAction("Index", "Login");
         }
     }

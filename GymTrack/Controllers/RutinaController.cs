@@ -60,7 +60,7 @@ namespace GymTrack.Controllers
                 TempData["Error"] = "No tienes permiso para realizar esta acción.";
                 return RedirectToAction("Index");
             }
-            return View();
+            return View("Index");
         }
 
         // GUARDAR LA NUEVA RUTINA EN LA BD

@@ -30,7 +30,7 @@ namespace GymTrack.Controllers
             var registros = _context.RegistrosEntrenamiento
                 .Include(r => r.Ejercicio)
                 .Where(r => r.UsuarioId == usuarioId)
-                .OrderByDescending(r => r.Fecha)
+                .OrderBy(r => r.Fecha)
                 .ToList();
             return View(registros);
         }
