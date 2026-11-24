@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using GymTrack.Data;
+﻿using GymTrack.Data;
 using GymTrack.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace GymTrack.Controllers
 {
@@ -20,7 +21,9 @@ namespace GymTrack.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
-            var ejercicios = _context.Ejercicios.ToList();
+            var ejercicios = _context.Ejercicios
+                .OrderBy(e => e.Nombre)
+                .ToList();
             return View(ejercicios);
         }
 

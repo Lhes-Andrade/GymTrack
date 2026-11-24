@@ -12,6 +12,18 @@ namespace GymTrack.Controllers
             {
                 return RedirectToAction("Index", "Login");
             }
+
+
+            if (HttpContext.Session.GetString("Rol") == "Cliente")
+            {
+                return RedirectToAction("Index", "Entrenamiento");
+            }
+
+            if (HttpContext.Session.GetString("Rol") == "Administrador")
+            {
+                return RedirectToAction("Index", "Ejercicio");
+            }
+
             return View();
         }
 
